@@ -1,0 +1,126 @@
+env:
+  browser: true
+  es6: true
+extends:
+  - "plugin:react/recommended"
+  - airbnb
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:prettier/recommended"
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2018
+  sourceType: module
+  project: "./tsconfig.json"
+plugins:
+  - react
+  - "@typescript-eslint"
+  - react-hooks
+  - unused-imports
+ignorePatterns: ["scripts/**/*.ts"]
+rules: {
+    "quotes": ["warn", "single"],
+    "prefer-promise-reject-errors": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/require-default-props": "off",
+    "react/no-unused-prop-types": "off",
+    "react/default-props-match-prop-types": "off",
+    "react/function-component-definition": "off",
+    "react/no-unstable-nested-components": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/prop-types": ["off"],
+    "no-return-assign": ["off"],
+    "import/no-unresolved": "off",
+    "react/destructuring-assignment": "off", # propsの分割代入,
+    "no-use-before-define": "off",
+    "no-param-reassign": ["error", { "props": false }], # ReduxToolkitでのstate更新
+    "no-shadow": "off",
+    "@typescript-eslint/no-use-before-define": [
+        "error",
+        { "variables": false },
+      ], # ReduxToolkit、slice内でのアクションの使用
+    "@typescript-eslint/no-misused-promises": "error",
+    "@typescript-eslint/no-floating-promises": "warn",
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/ban-types": "off",
+    # StoryBookで@storybook/*のdevDependenciesに関するパッケージをimport時にエラーを出さないようにする
+    "import/no-extraneous-dependencies": [
+        "error",
+        {
+          devDependencies: true, #
+          optionalDependencies: false,
+          peerDependencies: false,
+        },
+      ],
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    # debug
+    "@typescript-eslint/no-unused-vars": "off",
+    "import/extensions":
+      [
+        "error",
+        "ignorePackages",
+        {
+          "js": "never",
+          "jsx": "never",
+          "ts": "never",
+          "tsx": "never",
+          "mjs": "never",
+          "": "never",
+        },
+      ],
+    "@typescript-eslint/ban-ts-comment": "off",
+    # 相対importはエラーとする
+    "no-restricted-imports": ["error", { "patterns": ["./", "../"] }],
+    "@typescript-eslint/array-type": ["error", { "default": "array" }],
+    "react/jsx-wrap-multilines":
+      [
+        "error",
+        {
+          "declaration": "parens-new-line",
+          "assignment": "parens-new-line",
+          "return": "parens-new-line",
+          "arrow": "parens-new-line",
+          "condition": "parens-new-line",
+          "logical": "parens-new-line",
+          "prop": "ignore",
+        },
+      ],
+    # LinkコンポーネントでonClickを使えるようにする
+    "jsx-a11y/anchor-is-valid":
+      [
+        "error",
+        {
+          "components": ["Link"],
+          "specialLink": ["to"],
+          "aspects": ["noHref"],
+        },
+      ],
+    "require-await": "error",
+    # enumを使用しない
+    "no-restricted-syntax":
+      [
+        "error",
+        {
+          "selector": "TSEnumDeclaration:not([const=true])",
+          "message": "Don't declare non-const enums",
+        },
+      ],
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    # 使用しないimportに警告
+    "unused-imports/no-unused-imports-ts": "warn",
+    "eqeqeq": ["error", "always"],
+    "import/no-cycle": "warn",
+    "import/no-named-as-default": "warn",
+  }
+settings:
+  {
+    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
+    "import/resolver": { "typescript": { "alwaysTryTypes": true } },
+  }
